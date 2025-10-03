@@ -7,13 +7,12 @@ from pathlib import Path
 julich_atlas = siibra.get_map(space="mni152", parcellation="julich 3", maptype="labelled")
 
 # make directory to save atlas files
-output_dir = "atlas"
-os.makedirs(output_dir, exist_ok=True)
+output_dir = Path("atlas/JulichBrain207")
+output_dir.mkdir(parents=True, exist_ok=True)
 
 # fetch the atlas nifti file
 julich_nifti = julich_atlas.fetch()
-atlas_root = Path(output_dir)
-atlas_path = atlas_root / "atlas-JulichBrain207_space-MNI152NLin2009cAsym_dseg"
+atlas_path = output_dir / "atlas-JulichBrain207_space-MNI152NLin2009cAsym_dseg"
 julich_nifti.to_filename(f"{atlas_path}.nii.gz")
 
 # create the json sidecar
