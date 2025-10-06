@@ -164,12 +164,13 @@ def pipeline(sub, ses, data_root, out_root, atlas, mni_nifti):
 
 if __name__ == "__main__":
     # drago io
-    IN_ROOT = OUT_ROOT = Path("/data/parietal/store2/work/haggarwa/")
+    IN_ROOT = Path("/data/parietal/store2/work/haggarwa/ebrains_sc")
+    OUT_ROOT = Path("/data/parietal/store2/work/haggarwa/")
 
     # local io
     # IN_ROOT = OUT_ROOT = Path("/Users/himanshu/Desktop/ibc/ebrains_sc")
     # get atlas
-    atlas = julich_atlas.fetch(OUT_ROOT / "atlas" / "JulichBrain207")
+    atlas = julich_atlas.fetch(IN_ROOT / "atlas" / "JulichBrain207")
     # give atlas a custom name
     atlas["name"] = "JulichBrain207"
     # download mni templates and mask
@@ -179,7 +180,7 @@ if __name__ == "__main__":
     # path to mni mask to remove skull
     mni_mask = mni["mask"]
     # path to masked mni t2w
-    mni_nifti = os.path.join(IN_ROOT, "mni_t2w.nii.gz")
+    mni_nifti = os.path.join(OUT_ROOT, "mni_t2w.nii.gz")
     # apply mask to mni t2w template
     apply_mask(mni_unmasked, mni_mask, mni_nifti)
     # get sessions with diffusion data
