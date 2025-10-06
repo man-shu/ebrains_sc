@@ -16,7 +16,7 @@ transformation of tracts): https://community.mrtrix.org/t/are-sift2-weights-stil
 import os
 import sys
 from nilearn import datasets
-from ibc_public.utils_data import get_subject_session, DERIVATIVES
+from ibc_public.utils_data import get_subject_session
 from joblib import Parallel, delayed
 from pathlib import Path
 
@@ -165,6 +165,7 @@ def pipeline(sub, ses, data_root, out_root, atlas, mni_nifti):
 
 
 if __name__ == "__main__":
+    DERIVATIVES = Path("/data/parietal/store2/data/ibc/derivatives")
     # drago io
     IN_ROOT = Path("/data/parietal/store2/work/haggarwa/ebrains_sc")
     OUT_ROOT = Path("/data/parietal/store2/work/haggarwa/")
