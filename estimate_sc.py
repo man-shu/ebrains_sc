@@ -18,10 +18,9 @@ from nilearn import datasets
 from ibc_public.utils_data import get_subject_session, DERIVATIVES
 from joblib import Parallel, delayed
 from pathlib import Path
-from code import julich_atlas
 
 # add utils to path
-sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(os.path.join(os.path.dirname(__file__), "."))
 from utils import (
     antsRegister_b0dwi2mni,
     mrconvert_nifti2mif,
@@ -33,6 +32,7 @@ from utils import (
     tck2connectome,
     apply_mask,
 )
+from code import julich_atlas
 
 
 def pipeline(sub, ses, data_root, out_root, atlas, mni_nifti):
