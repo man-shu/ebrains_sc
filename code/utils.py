@@ -248,6 +248,8 @@ def atlas2dwi(dwi_b0, mni_nifti, atlas_nifti, atlas_in_dwi_space):
         print("Outputs already exist, skipping atlas2dwi.")
         return
 
+    print(f"{atlas_in_dwi_space} not found, warping atlas to dwi space")
+
     print(get_warp_cmd)
     os.system(get_warp_cmd)
 
