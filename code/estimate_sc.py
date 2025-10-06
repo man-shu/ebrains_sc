@@ -69,6 +69,7 @@ def pipeline(sub, ses, data_root, out_root, atlas, mni_nifti):
     str
         status message
     """
+    print(f"\nProcessing {sub} {ses}")
     # setup tmp dir for saving intermediate files
     tmp_dir = os.path.join(out_root, sub, ses, "dwi")
     if not os.path.exists(tmp_dir):
@@ -112,10 +113,10 @@ def pipeline(sub, ses, data_root, out_root, atlas, mni_nifti):
     ######## start transform atlas to diffusion native space ########
     # name of atlas in diffusion native space
     atlas_in_dwi_space = os.path.join(
-        tmp_dir, (f"{atlas.name}_in_dwi_space.nii.gz")
+        tmp_dir, (f"{atlas['name']}_in_dwi_space.nii.gz")
     )
     # transform atlas to diffusion native space
-    atlas2dwi(b0dwi, mni_nifti, atlas.maps, atlas_in_dwi_space)
+    atlas2dwi(b0dwi, mni_nifti, atlas["maps"], atlas_in_dwi_space)
 
     ######## start of connectivity matrix creation ########
     # iterate over spaces
@@ -127,7 +128,7 @@ def pipeline(sub, ses, data_root, out_root, atlas, mni_nifti):
             # use original tractogram in diffusion native space
             tck = dwi_tck
             # use transformed atlas in diffusion native space
-            atlas.maps = atlas_in_dwi_space
+            atlas["maps"] = atlas_in_dwi_space
         # calculate connectivity matrices with and without sift weights
         for sift in ["siftweighted", "nosift"]:
             if sift == "siftweighted":
@@ -141,19 +142,19 @@ def pipeline(sub, ses, data_root, out_root, atlas, mni_nifti):
             # name for output connectivity matrix
             connectivity_matrix = os.path.join(
                 tmp_dir,
-                f"{sub}_{ses}_Diffusion_connectome_{atlas.name}_{space}_"
+                f"{sub}_{ses}_Diffusion_connectome_{atlas['name']}_{space}_"
                 f"{sift}.csv",
             )
             # name for output inverse connectivity matrix
             inverse_connectivity_matrix = os.path.join(
                 tmp_dir,
-                f"{sub}_{ses}_Diffusion_invconnectome_{atlas.name}_{space}_"
+                f"{sub}_{ses}_Diffusion_invconnectome_{atlas['name']}_{space}_"
                 f"{sift}.csv",
             )
             # calculate and save the connectivity and inv connectivity
             # matrices
             tck2connectome(
-                atlas.maps,
+                atlas["maps"],
                 tck,
                 connectivity_matrix,
                 inverse_connectivity_matrix,
