@@ -18,13 +18,11 @@ def check_outputs_exist(expected_files):
     bool
         True if all expected output files exist, False otherwise
     """
-    exist = []
+    existing_files = []
     for file in expected_files:
         if os.path.exists(file):
-            exist.append(file)
-    breakpoint()
-    n_true = np.array(exist).sum()
-    return len(expected_files) == n_true
+            existing_files.append(file)
+    return existing_files == expected_files
 
 
 def antsRegister_b0dwi2mni(mni, b0dwi, tmp_dir):
