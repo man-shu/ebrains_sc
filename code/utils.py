@@ -4,6 +4,7 @@ import os
 import numpy as np
 from nilearn.maskers import NiftiMasker
 
+
 def check_outputs_exist(expected_files):
     """Check if all expected output files exist
 
@@ -21,7 +22,7 @@ def check_outputs_exist(expected_files):
     for file in expected_files:
         if os.path.exists(file):
             exist.append(file)
-    
+    breakpoint()
     n_true = np.array(exist).sum()
     return len(expected_files) == n_true
 
@@ -58,7 +59,13 @@ def antsRegister_b0dwi2mni(mni, b0dwi, tmp_dir):
         f"--smoothing-sigmas 2x2x1x0vox "
         f"-x [reference_mask_t2.nii.gz,input_mask_t2.nii.gz]"
     )
-    output_files = ["antsInverseWarped_t2.nii.gz", "ants_t20GenericAffine.mat", "ants_t21InverseWarp.nii.gz", "ants_t21Warp.nii.gz", "antsWarped_t2.nii.gz"]
+    output_files = [
+        "antsInverseWarped_t2.nii.gz",
+        "ants_t20GenericAffine.mat",
+        "ants_t21InverseWarp.nii.gz",
+        "ants_t21Warp.nii.gz",
+        "antsWarped_t2.nii.gz",
+    ]
     output_full_paths = [os.path.join(tmp_dir, f) for f in output_files]
     if check_outputs_exist(output_full_paths):
         print("Outputs already exist, skipping antsRegister_b0dwi2mni.")
@@ -87,7 +94,6 @@ def mrconvert_nifti2mif(nifti, mif, tmp_dir):
     os.system(cmd2)
 
 
-
 def warpinit_create_mni_invidentitywarp(mni_mif, inv_identity_warp, tmp_dir):
     """Wrapper function for MRtrix warpinit to create mni inverse identity warp
 
@@ -107,10 +113,13 @@ def warpinit_create_mni_invidentitywarp(mni_mif, inv_identity_warp, tmp_dir):
     output_files = [f"{inv_identity_warp}{i}_t2.nii" for i in range(3)]
     output_full_paths = [os.path.join(tmp_dir, f) for f in output_files]
     if check_outputs_exist(output_full_paths):
-        print("Outputs already exist, skipping warpinit_create_mni_invidentitywarp.")
+        print(
+            "Outputs already exist, skipping warpinit_create_mni_invidentitywarp."
+        )
         return
     print(cmd3)
     os.system(cmd3)
+
 
 def antsApplyTransforms_invidentitywarp2mni(b0dwi, tmp_dir):
     """Wrapper function for ANTs antsApplyTransforms to apply inverse identity
@@ -126,7 +135,9 @@ def antsApplyTransforms_invidentitywarp2mni(b0dwi, tmp_dir):
     output_files = [f"inv_mrtrix_warp{warp}_t2.nii" for warp in range(3)]
     output_full_paths = [os.path.join(tmp_dir, f) for f in output_files]
     if check_outputs_exist(output_full_paths):
-        print("Outputs already exist, skipping antsApplyTransforms_invidentitywarp2mni.")
+        print(
+            "Outputs already exist, skipping antsApplyTransforms_invidentitywarp2mni."
+        )
         return
 
     for warp in range(3):
@@ -155,7 +166,9 @@ def warpcorrect(tmp_dir):
         f"{tmp_dir}/inv_mrtrix_warp_corrected_t2.mif "
         f"-marker 2147483647 -force"
     )
-    if check_outputs_exist([os.path.join(tmp_dir, "inv_mrtrix_warp_corrected_t2.mif")]):
+    if check_outputs_exist(
+        [os.path.join(tmp_dir, "inv_mrtrix_warp_corrected_t2.mif")]
+    ):
         print("Outputs already exist, skipping warpcorrect.")
         return
     print(cmd5)
@@ -197,7 +210,7 @@ def apply_mask(img, mask, out_masked_img):
     out_masked_img : str
         name of output masked image
     """
-    
+
     if check_outputs_exist([out_masked_img]):
         print("Outputs already exist, skipping apply_mask.")
         return
