@@ -1,0 +1,11 @@
+{
+    "NodeFiles": "bids:atlases:JulichBrain207/atlas-JulichBrain207_space-MNI152NLin2009cAsym_dseg.nii.gz",
+    "NodeIndicesFile": "bids:atlases:JulichBrain207/atlas-JulichBrain207_space-MNI152NLin2009cAsym_dseg.tsv",
+    "RelationshipMeasure": "sift2",
+    "MeasureDescription": "Sift2 weights of reconstructed streamlines between each pair of regions (414 * 414).",
+    "Weighted": false,
+    "NonNegative": true,
+    "Directed": false,
+    "ValidDiagonal": false,
+    "Code": "bids_dataset/derivatives/code/estimate_sc.py"
+}
