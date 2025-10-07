@@ -28,7 +28,7 @@ def json_sidecar(bids_path, metadata_file, dry=True):
             if meas == "density":
                 metadata["RelationshipMeasure"] = "density"
                 metadata["MeasureDescription"] = (
-                    "Streamline density (count / ROIs volume) between source & target ROIs"
+                    "Streamline density (count / region volume) between each pair of regions (414 * 414)."
                 )
 
         with open(json_path, "w") as json_file:
