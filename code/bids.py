@@ -67,7 +67,6 @@ def create_bids(
 
             if not dry:
                 matrix = pd.read_csv(fi, header=None, index_col=None)
-                print(matrix)
                 matrix.to_csv(output_path, header=False, index=False, sep="\t")
             print(f"Copied {fi} to {output_path}")
 
