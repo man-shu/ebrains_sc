@@ -22,6 +22,15 @@ def json_sidecar(bids_path, metadata_file, dry=True):
             metadata = json.load(f)
             print(f"Loaded metadata from {metadata_file}")
 
+            file_name = os.path.basename(bids_path)
+            file_name_parts = file_name.split("_")
+            meas = file_name_parts[2].split("-")[1]
+            if meas == "density":
+                metadata["RelationshipMeasure"] = "density"
+                metadata["MeasureDescription"] = (
+                    "Streamline density (count / ROIs volume) between source & target ROIs"
+                )
+
         with open(json_path, "w") as json_file:
             json.dump(metadata, json_file, indent=4)
     print(f"Created JSON sidecar at {json_path}")
