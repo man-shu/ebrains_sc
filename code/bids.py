@@ -84,6 +84,5 @@ if __name__ == "__main__":
     dry = False
 
     Parallel(n_jobs=12)(
-        delayed(create_bids)(out_dir, sub_dir, dry=True)
-        for sub_dir in sub_dirs
+        delayed(create_bids)(out_dir, sub_dir, dry=dry) for sub_dir in sub_dirs
     )
