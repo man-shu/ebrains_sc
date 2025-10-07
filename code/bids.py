@@ -63,8 +63,7 @@ def create_bids(
             print(f"Copied {fi} to {output_path}")
 
             # create the json sidecar
-            if not dry:
-                json_sidecar(output_path.with_suffix(""), metadata_file)
+            json_sidecar(output_path.with_suffix(""), metadata_file, dry=dry)
 
 
 if __name__ == "__main__":
