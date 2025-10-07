@@ -6,7 +6,7 @@ import pandas as pd
 import json
 
 
-def json_sidecar(bids_path, metadata_file):
+def json_sidecar(bids_path, metadata_file, dry=True):
     """Creates a JSON sidecar file with the provided metadata.
 
     Parameters
@@ -16,13 +16,14 @@ def json_sidecar(bids_path, metadata_file):
     metadata : dict
         Dictionary containing metadata to be saved in the JSON file
     """
-    with open(metadata_file, "r") as f:
-        metadata = json.load(f)
-        print(f"Loaded metadata from {metadata_file}")
+    if not dry:
+        with open(metadata_file, "r") as f:
+            metadata = json.load(f)
+            print(f"Loaded metadata from {metadata_file}")
 
-    json_path = f"{bids_path}.json"
-    with open(json_path, "w") as json_file:
-        json.dump(metadata, json_file, indent=4)
+        json_path = f"{bids_path}.json"
+        with open(json_path, "w") as json_file:
+            json.dump(metadata, json_file, indent=4)
     print(f"Created JSON sidecar at {json_path}")
 
 
@@ -32,7 +33,6 @@ def create_bids(
 
     csv_files = list(sub_dir.glob(f"*/dwi/*JulichBrain207*csv"))
     csv_files.sort()
-    print(csv_files)
 
     for fi in csv_files:
         file_name = os.path.basename(fi)
