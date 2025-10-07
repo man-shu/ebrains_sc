@@ -16,12 +16,12 @@ def json_sidecar(bids_path, metadata_file, dry=True):
     metadata : dict
         Dictionary containing metadata to be saved in the JSON file
     """
+    json_path = f"{bids_path}.json"
     if not dry:
         with open(metadata_file, "r") as f:
             metadata = json.load(f)
             print(f"Loaded metadata from {metadata_file}")
 
-        json_path = f"{bids_path}.json"
         with open(json_path, "w") as json_file:
             json.dump(metadata, json_file, indent=4)
     print(f"Created JSON sidecar at {json_path}")
