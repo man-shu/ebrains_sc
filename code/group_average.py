@@ -4,6 +4,7 @@ import os
 from joblib import Parallel, delayed
 import pandas as pd
 import json
+import numpy as np
 
 
 def json_sidecar(bids_path, metadata_file, dry=True):
