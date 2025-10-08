@@ -159,6 +159,7 @@ def pipeline(sub, ses, data_root, out_root, atlas, mni_nifti):
                 connectivity_matrix,
                 inverse_connectivity_matrix,
                 sift_weights=sift_weights,
+                skip_if_exists=False,
             )
 
     return f"{sub} Done!"
@@ -168,7 +169,7 @@ if __name__ == "__main__":
     DERIVATIVES = Path("/data/parietal/store2/data/ibc/derivatives")
     # drago io
     IN_ROOT = Path("/data/parietal/store2/work/haggarwa/ebrains_sc")
-    OUT_ROOT = Path("/data/parietal/store2/work/haggarwa/")
+    OUT_ROOT = Path("/data/parietal/store2/work/haggarwa/ebrains_sc_tmp")
 
     # local io
     # IN_ROOT = OUT_ROOT = Path("/Users/himanshu/Desktop/ibc/ebrains_sc")

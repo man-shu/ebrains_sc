@@ -263,6 +263,7 @@ def tck2connectome(
     connectivity_matrix,
     inverse_connectivity_matrix,
     sift_weights=None,
+    skip_if_exists=True,
 ):
     """Wrapper function for MRtrix tck2connectome to create connectivity matrix
     from tractography
@@ -299,7 +300,10 @@ def tck2connectome(
             f"{tck} {atlas} {connectivity_matrix} -out_assignments "
             f"{inverse_connectivity_matrix}"
         )
-    if check_outputs_exist([connectivity_matrix, inverse_connectivity_matrix]):
+    if (
+        check_outputs_exist([connectivity_matrix, inverse_connectivity_matrix])
+        and skip_if_exists
+    ):
         print("Outputs already exist, skipping tck2connectome.")
         return
     print(cmd)
