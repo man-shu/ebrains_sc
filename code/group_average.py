@@ -65,7 +65,7 @@ def compute_group_average(
             )
 
             if not dry:
-                matrix = pd.read_csv(fi, header=None, index_col=None)
+                matrix = pd.read_csv(fi, header=None, index_col=None, sep="\t")
                 matrices.append(matrix.values)
 
         if not dry:
