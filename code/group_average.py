@@ -25,7 +25,6 @@ def json_sidecar(bids_path, metadata_file, dry=True):
 
             file_name = os.path.basename(bids_path)
             file_name_parts = file_name.split("_")
-            breakpoint()
             meas = file_name_parts[1].split("-")[1]
             if meas == "density":
                 metadata["RelationshipMeasure"] = "density"
