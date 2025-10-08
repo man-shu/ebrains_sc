@@ -25,7 +25,7 @@ def fetch(output_dir):
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # fetch the atlas nifti file
-    julich_nifti = julich_atlas.fetch()
+    julich_nifti = julich_atlas.compress().fetch()
     atlas_path = (
         output_dir / "atlas-JulichBrain207_space-MNI152NLin2009cAsym_dseg"
     )
