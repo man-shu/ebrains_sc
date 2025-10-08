@@ -35,6 +35,7 @@ from utils import (
 )
 import julich_atlas
 from bids import create_bids
+from group_average import compute_group_average
 
 
 def pipeline(sub, ses, data_root, out_root, atlas, mni_nifti):
