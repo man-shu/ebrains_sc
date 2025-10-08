@@ -210,11 +210,11 @@ if __name__ == "__main__":
     sub_dirs = list(OUT_ROOT.glob("sub-*"))
     sub_dirs.sort()
     Parallel(n_jobs=12)(
-        delayed(create_bids)(out_dir, sub_dir, dry=False)
+        delayed(create_bids)(BIDS_ROOT, sub_dir, dry=False)
         for sub_dir in sub_dirs
     )
 
     print("\n****************************************\n")
     print(f"Creating group average matrices in {BIDS_ROOT / 'group'}")
-    compute_group_average(out_dir, dry=False)
+    compute_group_average(BIDS_ROOT, dry=False)
     print("All done!")
