@@ -11,6 +11,10 @@ weights normalised by ROI volume (-scale_invnodevol parameter)
 See tck2connectome doc: https://mrtrix.readthedocs.io/en/latest/reference/commands/tck2connectome.html#tck2connectome
 Discussion on using original SIFT2 weights (calculated before non-linear
 transformation of tracts): https://community.mrtrix.org/t/are-sift2-weights-still-interpretable-following-non-linear-transformation/6162
+4) everything above is stored in a tmp directory including intermediate files
+5) then connectivity matrices are copied to a bids directory with appropriate
+naming and json sidecars are created. Only matrices in MNI space are copied.
+6) finally, group average matrices are created in the bids directory
 """
 
 import os

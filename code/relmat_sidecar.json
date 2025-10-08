@@ -7,5 +7,5 @@
     "NonNegative": true,
     "Directed": false,
     "ValidDiagonal": false,
-    "Code": "bids_dataset/derivatives/dwi_connectivity/code/estimate_sc.py"
+    "Code": "https://github.com/man-shu/ebrains_sc"
 }
