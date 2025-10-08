@@ -34,6 +34,7 @@ from utils import (
     apply_mask,
 )
 import julich_atlas
+from bids import create_bids
 
 
 def pipeline(sub, ses, data_root, out_root, atlas, mni_nifti):
@@ -159,7 +160,6 @@ def pipeline(sub, ses, data_root, out_root, atlas, mni_nifti):
                 connectivity_matrix,
                 inverse_connectivity_matrix,
                 sift_weights=sift_weights,
-                skip_if_exists=False,
             )
 
     return f"{sub} Done!"
@@ -170,9 +170,8 @@ if __name__ == "__main__":
     # drago io
     IN_ROOT = Path("/data/parietal/store2/work/haggarwa/ebrains_sc")
     OUT_ROOT = Path("/data/parietal/store2/work/haggarwa/ebrains_sc_tmp")
+    BIDS_ROOT = Path("/data/parietal/store3/work/haggarwa/dwi_connectivity")
 
-    # local io
-    # IN_ROOT = OUT_ROOT = Path("/Users/himanshu/Desktop/ibc/ebrains_sc")
     # get atlas
     atlas = julich_atlas.fetch(IN_ROOT / "atlas" / "JulichBrain207")
     # give atlas a custom name
@@ -197,9 +196,25 @@ if __name__ == "__main__":
         )
         for subject_session in subject_sessions
     }
+    print("\n****************************************\n")
+    print(f"Estimating structural connectivity for {len(sub_ses)} subjects...")
     results = Parallel(n_jobs=12, verbose=2, backend="loky")(
         delayed(pipeline)(sub, ses, DERIVATIVES, OUT_ROOT, atlas, mni_nifti)
         for sub, ses in sub_ses.items()
     )
 
     print(results)
+
+    print("\n****************************************\n")
+    print(f"Copying results to bids directory: {BIDS_ROOT}")
+    sub_dirs = list(OUT_ROOT.glob("sub-*"))
+    sub_dirs.sort()
+    Parallel(n_jobs=12)(
+        delayed(create_bids)(out_dir, sub_dir, dry=False)
+        for sub_dir in sub_dirs
+    )
+
+    print("\n****************************************\n")
+    print(f"Creating group average matrices in {BIDS_ROOT / 'group'}")
+    compute_group_average(out_dir, dry=False)
+    print("All done!")
