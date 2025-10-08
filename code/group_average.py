@@ -54,7 +54,7 @@ def compute_group_average(
             file_name = os.path.basename(fi)
             file_name_parts = file_name.split("_")
             ses_dir = file_name_parts[1]
-            meas = file_name_parts[6].split(".")[0]
+            meas = file_name_parts[2].split("-")[1]
             output_path_dir = out_dir / "group" / "dwi"
 
             if not dry:
