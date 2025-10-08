@@ -30,7 +30,8 @@ def json_sidecar(bids_path, metadata_file, dry=True):
             if meas == "density":
                 metadata["RelationshipMeasure"] = "density"
                 metadata["MeasureDescription"] = (
-                    "Streamline density (count / region volume) between each pair of regions (414 * 414)."
+                    "Streamline density (count / region volume) between each"
+                    " pair of regions (414 * 414)."
                 )
             metadata["MeasureDescription"].replace(
                 ".", ", additionally, averaged across subjects."
