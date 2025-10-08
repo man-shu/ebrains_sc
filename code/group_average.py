@@ -71,7 +71,6 @@ def compute_group_average(
                 matrices.append(matrix.values)
 
         if not dry:
-            breakpoint()
             mean_matrix = np.array(matrices).mean(axis=0)
             pd.DataFrame(mean_matrix).to_csv(
                 output_path, header=False, index=False, sep="\t"
