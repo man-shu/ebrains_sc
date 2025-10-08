@@ -26,7 +26,7 @@ def json_sidecar(bids_path, metadata_file, dry=True):
             file_name = os.path.basename(bids_path)
             file_name_parts = file_name.split("_")
             breakpoint()
-            meas = file_name_parts[2].split("-")[1]
+            meas = file_name_parts[1].split("-")[1]
             if meas == "density":
                 metadata["RelationshipMeasure"] = "density"
                 metadata["MeasureDescription"] = (
@@ -46,7 +46,7 @@ def compute_group_average(
 ):
 
     for measure in ["density", "sift2"]:
-        tsv_files = list(out_dir.glob(f"**/*{measure}*tsv"))
+        tsv_files = list(out_dir.glob(f"**/ses-*{measure}*tsv"))
         tsv_files.sort()
 
         matrices = []
