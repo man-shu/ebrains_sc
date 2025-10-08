@@ -46,7 +46,7 @@ def compute_group_average(
 ):
 
     for measure in ["density", "sift2"]:
-        tsv_files = list(out_dir.glob(f"**/ses-*{measure}*tsv"))
+        tsv_files = list(out_dir.glob(f"**/ses-*/**/*{measure}*tsv"))
         tsv_files.sort()
 
         matrices = []
